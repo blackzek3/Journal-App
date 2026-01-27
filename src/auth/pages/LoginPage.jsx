@@ -2,31 +2,26 @@ import { Box, Typography, TextField, Grid, Button, Link, } from "@mui/material";
 import { Link as RouterLink } from "react-router";
 import { Google } from "@mui/icons-material";
 import { AuthLayout } from '../layout/AuthLayout';
-import { useForm } from "../../hooks/useForm";
-import { useDispatch } from "react-redux";
-import { checkingAutentication } from "../../store/auth/thunks";
+import { useForm } from "../../hooks";
+
 export const LoginPage = () => {
 
-  const dispath = useDispatch();
   const { email, password, onInputChange } = useForm({
-    email: 'neocampos4@gmail.com',
-    password: '12345' 
+    email: 'neo@gmail.com',
+    password: '121974' 
   });
 
   const onSubmit = ( event ) => {
     event.preventDefault();
-    dispath( checkingAutentication() );
-  }
 
-  const onGoogleSignIn = () => {
-    console.log('onGoogle')
+    console.log({ email, password })
   }
-
+ 
   return (
 
-    <AuthLayout title="Login" >
-      <Grid onSubmit={ onSubmit } container component="form"  spacing={2}>
-           
+    <AuthLayout title="Login">
+      <form onSubmit={ onSubmit }>
+          
           <Grid size={{ xs: 12, md: 15 }}>
 
             <TextField
@@ -38,12 +33,12 @@ export const LoginPage = () => {
               fullWidth
               name="email"
               value={ email }
-              onChange={ onInputChange }
+              onChange={ onInputChange }       
             />
 
           </Grid>
 
-          <Grid size={{ xs: 12, md: 15 }}>
+          <Grid sx={{ mt: 2}} size={{ xs: 12, md: 15, mt: 2 }}>
 
             <TextField
               id="password"
@@ -52,18 +47,15 @@ export const LoginPage = () => {
               placeholder="password"
               size="small"
               fullWidth
-              name="password"
+              name="password"  
               value={ password }
-              onChange={ onInputChange }
+              onChange={ onInputChange }      
             />
 
           </Grid>
 
-        </Grid>
+        </form>
 
-
-
-        {/* New */}
 
         <Grid container spacing={2} sx={{ mt: 2 }}>
 
@@ -81,7 +73,6 @@ export const LoginPage = () => {
               variant="contained"
               fullWidth
               startIcon={<Google />}
-              onClick={ onGoogleSignIn }
             >
               Google
             </Button>
