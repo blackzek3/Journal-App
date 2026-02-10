@@ -1,10 +1,15 @@
-import { Box, Typography, TextField, Grid, Button, Link, } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { Link as RouterLink } from "react-router";
 import { Google } from "@mui/icons-material";
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from "../../hooks";
+import { TextField, Grid, Button, Link, } from "@mui/material";
+import { checkingAuthentication, starGoogleSignIn } from "../../store/auth/thunks";
+
 
 export const LoginPage = () => {
+
+  const dispatch = useDispatch();
 
   const { email, password, onInputChange } = useForm({
     email: 'neo@gmail.com',
@@ -14,7 +19,11 @@ export const LoginPage = () => {
   const onSubmit = ( event ) => {
     event.preventDefault();
 
-    console.log({ email, password })
+    dispatch( checkingAuthentication() );
+  }
+
+  const onGoogleSignIn = () => {
+    dispatch( starGoogleSignIn() );
   }
  
   return (
@@ -54,7 +63,7 @@ export const LoginPage = () => {
 
           </Grid>
 
-        </form>
+       
 
 
         <Grid container spacing={2} sx={{ mt: 2 }}>
@@ -73,6 +82,7 @@ export const LoginPage = () => {
               variant="contained"
               fullWidth
               startIcon={<Google />}
+              onClick={ onGoogleSignIn }
             >
               Google
             </Button>
@@ -96,6 +106,7 @@ export const LoginPage = () => {
           </Link>
 
         </Grid>
+      </form>
     </AuthLayout>
         
         
